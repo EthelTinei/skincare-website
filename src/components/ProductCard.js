@@ -9,19 +9,18 @@ export class ProductCard extends BaseComponent {
 
   getRandomImage() {
     if (this.product.images && this.product.images.length > 0) {
-      const randomIndex = Math.floor(Math.random() * this.product.images.length);
-      return this.product.images[randomIndex];
+      return this.product.images[Math.floor(Math.random() * this.product.images.length)];
     }
     return '/images/cream1.webp';
   }
 
   render() {
     const imageUrl = this.getRandomImage();
-    const card = document.createElement('article');
-    card.className = 'product-card';
-    card.dataset.productId = this.product.id;
+    this.element = document.createElement('article');
+    this.element.className = 'product-card';
+    this.element.dataset.productId = this.product.id;
 
-    card.innerHTML = `
+    this.element.innerHTML = `
       <div class="product-card__image">
         <img src="${imageUrl}" alt="${this.product.name}" loading="lazy" class="product-card__img">
       </div>
@@ -46,14 +45,14 @@ export class ProductCard extends BaseComponent {
       </div>
     `;
 
-    const btn = card.querySelector('.product-card__btn');
-    const select = card.querySelector('.product-card__select');
+    const btn = this.element.querySelector('.product-card__btn');
+    const select = this.element.querySelector('.product-card__select');
     if (btn && select) {
       this.attachEvent(btn, 'click', () => {
         this.onAdd(select.value, this.product);
       });
     }
 
-    return card;
+    return this.element;
   }
 }

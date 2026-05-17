@@ -1,29 +1,22 @@
 export class BaseComponent {
   constructor() {
-    this.eventListeners = [];
+    this.element = document.createElement('div');
+    this.listeners = [];
   }
 
-  setState(newState) {
-    this.state = { ...this.state, ...newState };
-    if (typeof this.onStateChange === 'function') {
-      this.onStateChange(this.state);
-    }
-    this.render();
+  attachEvent(target, type, handler) {
+    target.addEventListener(type, handler);
+    this.listeners.push({ target, type, handler });
   }
 
-  attachEvent(element, event, handler) {
-    element.addEventListener(event, handler);
-    this.eventListeners.push({ element, event, handler });
-  }
-
-  destroy() {
-    this.eventListeners.forEach(({ element, event, handler }) => {
-      element.removeEventListener(event, handler);
+  removeEvents() {
+    this.listeners.forEach(({ target, type, handler }) => {
+      target.removeEventListener(type, handler);
     });
-    this.eventListeners = [];
+    this.listeners = [];
   }
 
   render() {
-    throw new Error('Метод render() должен быть переопределён в дочернем классе');
+    return this.element;
   }
 }

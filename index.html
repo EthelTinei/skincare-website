@@ -1,13 +1,23 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>График ухода за кожей</title>
-  <link rel="stylesheet" href="/src/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Персонализированный график ухода за кожей</title>
+  <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
-  <div id="app" class="skin-app"></div>
+  <div id="app" class="skin-app">
+    <header class="skin-app__header">
+      <h1>Персонализированный график ухода за кожей</h1>
+      <p class="skin-app__subtitle">Создайте свой идеальный ритуал красоты</p>
+    </header>
+    <main id="main-content" class="skin-app__main"></main>
+  </div>
+  <button class="theme-toggle" aria-label="Переключить тему">
+    <span class="theme-toggle__icon"></span>
+    <span class="theme-toggle__text">Тёмная</span>
+  </button>
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>

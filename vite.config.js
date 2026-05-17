@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import { copyFileSync, mkdirSync } from 'fs'
+import { copyFileSync, mkdirSync, readdirSync } from 'fs'
 
 export default defineConfig({
   base: '/skincare-website/',
@@ -11,13 +11,12 @@ export default defineConfig({
     closeBundle() {
       try {
         mkdirSync('dist/images', { recursive: true })
-        const fs = require('fs')
-        const files = fs.readdirSync('public/images')
+        const files = readdirSync('public/images')
         files.forEach(file => {
           copyFileSync(`public/images/${file}`, `dist/images/${file}`)
         })
       } catch (e) {
-        console.log('Asset copy failed:', e.message)
+        console.log('Asset copy skipped')
       }
     }
   }]

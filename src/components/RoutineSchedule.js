@@ -5,18 +5,13 @@ export class RoutineSchedule extends BaseComponent {
     super();
     this.days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
     this.dayNames = {
-      mon: 'Понедельник',
-      tue: 'Вторник',
-      wed: 'Среда',
-      thu: 'Четверг',
-      fri: 'Пятница',
-      sat: 'Суббота',
-      sun: 'Воскресенье'
+      mon: 'Понедельник', tue: 'Вторник', wed: 'Среда',
+      thu: 'Четверг', fri: 'Пятница', sat: 'Суббота', sun: 'Воскресенье'
     };
     this.schedule = {};
     this.days.forEach(day => this.schedule[day] = []);
-    this.container = document.createElement('div');
-    this.container.className = 'routine-schedule';
+    this.element = document.createElement('div');
+    this.element.className = 'routine-schedule';
   }
 
   addProduct(day, product) {
@@ -36,7 +31,7 @@ export class RoutineSchedule extends BaseComponent {
   }
 
   _updateDOM() {
-    this.container.innerHTML = `
+    this.element.innerHTML = `
       <div class="routine-schedule__header">
         <h2 class="routine-schedule__title">Недельный график ухода</h2>
         <button class="routine-schedule__clear-btn" type="button">Очистить всё</button>
@@ -46,10 +41,10 @@ export class RoutineSchedule extends BaseComponent {
       </div>
     `;
 
-    const clearBtn = this.container.querySelector('.routine-schedule__clear-btn');
+    const clearBtn = this.element.querySelector('.routine-schedule__clear-btn');
     if (clearBtn) this.attachEvent(clearBtn, 'click', () => this.clearAll());
 
-    this.container.querySelectorAll('.routine-schedule__remove').forEach(btn => {
+    this.element.querySelectorAll('.routine-schedule__remove').forEach(btn => {
       this.attachEvent(btn, 'click', (e) => {
         this.removeProduct(e.target.dataset.day, parseInt(e.target.dataset.index, 10));
       });
@@ -76,6 +71,6 @@ export class RoutineSchedule extends BaseComponent {
 
   render() {
     this._updateDOM();
-    return this.container;
+    return this.element;
   }
 }

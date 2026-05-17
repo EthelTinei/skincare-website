@@ -1,0 +1,70 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Увлажняющий крем Hydra Plus",
+      "type": "Дневной крем",
+      "images": ["./images/cream1.webp", "./images/cream2.webp", "./images/cream3.webp"],
+      "skinTypes": ["сухая", "нормальная", "все"],
+      "ageRanges": ["18-25", "26-35", "все"],
+      "concerns": ["сухость", "все"],
+      "benefits": ["Интенсивное увлажнение", "Питание"],
+      "timeOfDay": "morning"
+    },
+    {
+      "id": 2,
+      "name": "Сыворотка с гиалуроновой кислотой",
+      "type": "Сыворотка",
+      "images": ["./images/serum1.webp", "./images/serum2.webp", "./images/serum3.webp"],
+      "skinTypes": ["сухая", "нормальная", "комбинированная", "все"],
+      "ageRanges": ["26-35", "36-45", "46+", "все"],
+      "concerns": ["сухость", "морщины", "все"],
+      "benefits": ["Глубокое увлажнение", "Разглаживание морщин"],
+      "timeOfDay": "evening"
+    },
+    {
+      "id": 3,
+      "name": "Очищающий гель Gentle Clean",
+      "type": "Очищение",
+      "images": ["./images/cleanser1.webp", "./images/cleanser2.webp", "./images/cleanser3.webp"],
+      "skinTypes": ["жирная", "комбинированная", "все"],
+      "ageRanges": ["18-25", "26-35", "все"],
+      "concerns": ["акне", "жирный блеск", "все"],
+      "benefits": ["Глубокое очищение", "Матирующий эффект"],
+      "timeOfDay": "morning"
+    },
+    {
+      "id": 4,
+      "name": "Ночной восстанавливающий крем",
+      "type": "Ночной крем",
+      "images": ["./images/nightcream1.webp", "./images/nightcream2.webp", "./images/nightcream3.webp"],
+      "skinTypes": ["сухая", "нормальная", "все"],
+      "ageRanges": ["36-45", "46+", "все"],
+      "concerns": ["морщины", "сухость", "все"],
+      "benefits": ["Восстановление", "Питание", "Антивозрастной уход"],
+      "timeOfDay": "evening"
+    },
+    {
+      "id": 5,
+      "name": "Тоник увлажняющий с розовой водой",
+      "type": "Тоник",
+      "images": ["./images/toner1.webp", "./images/toner2.webp", "./images/toner3.webp"],
+      "skinTypes": ["сухая", "нормальная", "комбинированная", "все"],
+      "ageRanges": ["18-25", "26-35", "все"],
+      "concerns": ["сухость", "все"],
+      "benefits": ["Тонизирование", "Увлажнение"],
+      "timeOfDay": "morning"
+    },
+    {
+      "id": 6,
+      "name": "Средство от акне Clear Skin",
+      "type": "Лечение",
+      "images": ["./images/treatment1.webp", "./images/treatment2.webp", "./images/treatment3.webp"],
+      "skinTypes": ["жирная", "комбинированная", "все"],
+      "ageRanges": ["18-25", "26-35", "все"],
+      "concerns": ["акне", "все"],
+      "benefits": ["Борьба с акне", "Сужение пор"],
+      "timeOfDay": "evening"
+    }
+  ]
+}

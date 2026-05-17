@@ -9,9 +9,10 @@ export class ProductCard extends BaseComponent {
 
   getRandomImage() {
     if (this.product.images && this.product.images.length > 0) {
-      return this.product.images[Math.floor(Math.random() * this.product.images.length)];
+      const randomIndex = Math.floor(Math.random() * this.product.images.length);
+      return this.product.images[randomIndex];
     }
-    return '/images/cream1.webp';
+    return './images/cream1.webp';
   }
 
   render() {

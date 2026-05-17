@@ -1,14 +1,14 @@
 :root {
-  --color-bg: #f8f9fa;
+  --color-bg: #faf5ff;
   --color-card: #ffffff;
-  --color-primary: #7aa8a8;
-  --color-primary-dark: #5c8d8d;
-  --color-accent: #e5989b;
+  --color-primary: #9f7aea;
+  --color-primary-dark: #805ad5;
+  --color-accent: #d6bcfa;
   --color-text: #2d3748;
   --color-text-muted: #718096;
-  --color-border: #e2e8f0;
-  --color-success: #81b29a;
-  --color-error: #e53e3e;
+  --color-border: #e9d8fd;
+  --color-success: #9ae6b4;
+  --color-error: #fc8181;
   
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
@@ -486,16 +486,16 @@ body {
 }
 
 [data-theme="dark"] {
-  --color-bg: #1a1a2e;
-  --color-card: #16213e;
-  --color-primary: #4a9a9a;
-  --color-primary-dark: #3a7a7a;
-  --color-accent: #d47878;
-  --color-text: #f0f0f0;
-  --color-text-muted: #b0b0c0;
-  --color-border: #2a3a5a;
-  --color-success: #6a9a7a;
-  --color-error: #d44;
+  --color-bg: #3e2723;
+  --color-card: #4e342e;
+  --color-primary: #d7ccc8;
+  --color-primary-dark: #bcaaa4;
+  --color-accent: #8d6e63;
+  --color-text: #efebe9;
+  --color-text-muted: #a1887f;
+  --color-border: #5d4037;
+  --color-success: #66bb6a;
+  --color-error: #ef5350;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
   --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
 }
@@ -518,16 +518,16 @@ body {
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-bg: #1a1a2e;
-    --color-card: #16213e;
-    --color-primary: #4a9a9a;
-    --color-primary-dark: #3a7a7a;
-    --color-accent: #d47878;
-    --color-text: #f0f0f0;
-    --color-text-muted: #b0b0c0;
-    --color-border: #2a3a5a;
-    --color-success: #6a9a7a;
-    --color-error: #d44;
+    --color-bg: #3e2723;
+    --color-card: #4e342e;
+    --color-primary: #d7ccc8;
+    --color-primary-dark: #bcaaa4;
+    --color-accent: #8d6e63;
+    --color-text: #efebe9;
+    --color-text-muted: #a1887f;
+    --color-border: #5d4037;
+    --color-success: #66bb6a;
+    --color-error: #ef5350;
     --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
     --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
   }

@@ -30,6 +30,9 @@ export class ProductCard extends BaseComponent {
         <p class="product-card__type">${this.product.type}</p>
         <div class="product-card__tags">
           <span class="product-card__tag">${this.product.benefits.join(', ')}</span>
+          <span class="product-card__tag product-card__tag--time">
+            ${this.product.timeOfDay === 'morning' ? '☀️ Утро' : '🌙 Вечер'}
+          </span>
         </div>
         <div class="product-card__day-selector">
           <select class="product-card__select" aria-label="Выберите день">

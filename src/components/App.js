@@ -1,7 +1,7 @@
-import { SkinProfileForm } from './components/SkinProfileForm.js';
-import { ProductCard } from './components/ProductCard.js';
-import { RoutineSchedule } from './components/RoutineSchedule.js';
-import { ApiService } from './services/ApiService.js';
+import { SkinProfileForm } from './SkinProfileForm.js';
+import { ProductCard } from './ProductCard.js';
+import { RoutineSchedule } from './RoutineSchedule.js';
+import { ApiService } from '../services/ApiService.js';
 
 export class App {
   constructor() {

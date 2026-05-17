@@ -7,13 +7,17 @@ export default defineConfig({
     outDir: 'dist',
   },
   plugins: [{
-    name: 'copy-data',
+    name: 'copy-assets',
     closeBundle() {
       try {
-        mkdirSync('dist/data', { recursive: true })
-        copyFileSync('public/data/skincare.json', 'dist/data/skincare.json')
+        mkdirSync('dist/images', { recursive: true })
+        const fs = require('fs')
+        const files = fs.readdirSync('public/images')
+        files.forEach(file => {
+          copyFileSync(`public/images/${file}`, `dist/images/${file}`)
+        })
       } catch (e) {
-        console.log('Data copy skipped or failed')
+        console.log('Asset copy failed:', e.message)
       }
     }
   }]

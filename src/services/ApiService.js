@@ -7,7 +7,7 @@ export class ApiService {
     try {
       await new Promise(resolve => setTimeout(resolve, 300));
       
-      const response = await fetch(`${this.baseUrl}/data/skincare.json`);
+      const response = await fetch(`${this.baseUrl}./data/skincare.json`);
       if (!response.ok) {
         throw new Error(`Ошибка HTTP: ${response.status}`);
       }

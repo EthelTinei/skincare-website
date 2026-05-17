@@ -36,13 +36,18 @@ export class App {
     form.element.addEventListener('submit', async (e) => {
       e.preventDefault();
       const formData = new FormData(form.element);
-      const data = Object.fromEntries(formData.entries());
+      const data = {
+        skinType: formData.get('skinType'),
+        age: formData.get('age'),
+        concerns: formData.getAll('concerns').join(',')
+      };
 
       try {
         const products = await this.api.fetchProducts();
         const recommended = this.filterProducts(products, data);
         this.renderProducts(recommended, productsGrid);
         productsSection.hidden = false;
+        scheduleSection.scrollIntoView({ behavior: 'smooth' });
       } catch (error) {
         console.error('Ошибка загрузки:', error);
         productsGrid.innerHTML = '<p class="error">Не удалось загрузить рекомендации.</p>';
@@ -52,11 +57,11 @@ export class App {
   }
 
   filterProducts(products, profile) {
+    const userConcerns = profile.concerns ? profile.concerns.split(',').map(c => c.trim()) : [];
     return products.filter(p => {
       const skinMatch = p.skinTypes.includes(profile.skinType) || p.skinTypes.includes('все');
       const ageMatch = p.ageRanges.includes(profile.age) || p.ageRanges.includes('все');
-      const concerns = profile.concerns ? profile.concerns.split(',').map(c => c.trim()) : [];
-      const concernMatch = concerns.length === 0 || concerns.some(c => p.concerns.includes(c) || p.concerns.includes('все'));
+      const concernMatch = userConcerns.length === 0 || userConcerns.some(c => p.concerns.includes(c) || p.concerns.includes('все'));
       return skinMatch && ageMatch && concernMatch;
     });
   }

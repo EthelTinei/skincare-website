@@ -15,41 +15,48 @@ export class RoutineSchedule extends BaseComponent {
     };
     this.schedule = {};
     this.days.forEach(day => this.schedule[day] = []);
+    this.container = document.createElement('div');
+    this.container.className = 'routine-schedule';
   }
 
   addProduct(day, product) {
     if (!this.days.includes(day)) return;
     this.schedule[day].push({ ...product, uid: Date.now() + Math.random() });
-    this.render();
+    this._updateDOM();
   }
 
   removeProduct(day, index) {
     this.schedule[day].splice(index, 1);
-    this.render();
+    this._updateDOM();
   }
 
-  render() {
-    const container = document.createElement('div');
-    container.className = 'routine-schedule';
-    container.innerHTML = `
+  clearAll() {
+    this.days.forEach(day => this.schedule[day] = []);
+    this._updateDOM();
+  }
+
+  _updateDOM() {
+    this.container.innerHTML = `
       <div class="routine-schedule__header">
         <h2 class="routine-schedule__title">Недельный график ухода</h2>
         <button class="routine-schedule__clear-btn" type="button">Очистить всё</button>
       </div>
       <div class="routine-schedule__grid">
-        ${this.days.map(day => this.renderDayColumn(day)).join('')}
+        ${this.days.map(day => this._renderDayColumn(day)).join('')}
       </div>
     `;
 
-    this.attachEvent(container.querySelector('.routine-schedule__clear-btn'), 'click', () => {
-      this.days.forEach(d => this.schedule[d] = []);
-      this.render();
-    });
+    const clearBtn = this.container.querySelector('.routine-schedule__clear-btn');
+    if (clearBtn) this.attachEvent(clearBtn, 'click', () => this.clearAll());
 
-    return container;
+    this.container.querySelectorAll('.routine-schedule__remove').forEach(btn => {
+      this.attachEvent(btn, 'click', (e) => {
+        this.removeProduct(e.target.dataset.day, parseInt(e.target.dataset.index, 10));
+      });
+    });
   }
 
-  renderDayColumn(day) {
+  _renderDayColumn(day) {
     const items = this.schedule[day];
     return `
       <div class="routine-schedule__day-column" data-day="${day}">
@@ -67,11 +74,8 @@ export class RoutineSchedule extends BaseComponent {
     `;
   }
 
-  onEvent(event, target) {
-    if (target.matches('.routine-schedule__remove')) {
-      const day = target.dataset.day;
-      const index = parseInt(target.dataset.index, 10);
-      this.removeProduct(day, index);
-    }
+  render() {
+    this._updateDOM();
+    return this.container;
   }
 }

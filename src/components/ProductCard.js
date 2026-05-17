@@ -32,7 +32,7 @@ export class ProductCard extends BaseComponent {
           <span class="product-card__tag">${this.product.benefits.join(', ')}</span>
         </div>
         <div class="product-card__day-selector">
-          <select class="product-card__select">
+          <select class="product-card__select" aria-label="Выберите день">
             <option value="mon">Понедельник</option>
             <option value="tue">Вторник</option>
             <option value="wed">Среда</option>
@@ -41,7 +41,7 @@ export class ProductCard extends BaseComponent {
             <option value="sat">Суббота</option>
             <option value="sun">Воскресенье</option>
           </select>
-          <button class="product-card__btn" type="button">Добавить в график</button>
+          <button class="product-card__btn" type="button">Добавить</button>
         </div>
       </div>
     `;
@@ -49,7 +49,7 @@ export class ProductCard extends BaseComponent {
     const btn = card.querySelector('.product-card__btn');
     const select = card.querySelector('.product-card__select');
     if (btn && select) {
-      btn.addEventListener('click', () => {
+      this.attachEvent(btn, 'click', () => {
         this.onAdd(select.value, this.product);
       });
     }

@@ -3,101 +3,75 @@ import { BaseComponent } from './BaseComponent.js';
 export class RoutineSchedule extends BaseComponent {
   constructor() {
     super();
-    this.schedule = { morning: [], evening: [] };
+    this.days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+    this.dayNames = {
+      mon: 'Понедельник',
+      tue: 'Вторник',
+      wed: 'Среда',
+      thu: 'Четверг',
+      fri: 'Пятница',
+      sat: 'Суббота',
+      sun: 'Воскресенье'
+    };
+    this.schedule = {};
+    this.days.forEach(day => this.schedule[day] = []);
   }
 
-  addItem(product, time) {
-    if (!this.schedule[time].some(p => p.id === product.id)) {
-      this.schedule[time].push(product);
-      this.#saveToStorage();
-      this.render();
-      return true;
-    }
-    return false;
-  }
-
-  removeItem(productId, time) {
-    this.schedule[time] = this.schedule[time].filter(p => p.id !== productId);
-    this.#saveToStorage();
+  addProduct(day, product) {
+    if (!this.days.includes(day)) return;
+    this.schedule[day].push({ ...product, uid: Date.now() + Math.random() });
     this.render();
   }
 
-  clearAll() {
-    this.schedule = { morning: [], evening: [] };
-    this.#saveToStorage();
+  removeProduct(day, index) {
+    this.schedule[day].splice(index, 1);
     this.render();
-  }
-
-  #saveToStorage() {
-    localStorage.setItem('skincareSchedule', JSON.stringify(this.schedule));
-  }
-
-  loadFromStorage() {
-    const saved = localStorage.getItem('skincareSchedule');
-    if (saved) {
-      this.schedule = JSON.parse(saved);
-    }
   }
 
   render() {
-    const container = document.querySelector('.routine-schedule');
-    if (!container) return;
-
+    const container = document.createElement('div');
+    container.className = 'routine-schedule';
     container.innerHTML = `
       <div class="routine-schedule__header">
-        <h2 class="routine-schedule__title">Ваш график ухода</h2>
+        <h2 class="routine-schedule__title">Недельный график ухода</h2>
         <button class="routine-schedule__clear-btn" type="button">Очистить всё</button>
       </div>
-      <div class="routine-schedule__columns">
-        ${this.#renderColumn('morning', '☀️ Утро')}
-        ${this.#renderColumn('evening', '🌙 Вечер')}
+      <div class="routine-schedule__grid">
+        ${this.days.map(day => this.renderDayColumn(day)).join('')}
       </div>
     `;
 
-    this.#bindRemoveEvents(container);
-    this.#bindClearEvent(container);
+    this.attachEvent(container.querySelector('.routine-schedule__clear-btn'), 'click', () => {
+      this.days.forEach(d => this.schedule[d] = []);
+      this.render();
+    });
+
+    return container;
   }
 
-  #renderColumn(time, title) {
-    const items = this.schedule[time];
+  renderDayColumn(day) {
+    const items = this.schedule[day];
     return `
-      <section class="routine-schedule__column">
-        <h3 class="routine-schedule__column-title">${title}</h3>
-        ${items.length === 0 
-          ? '<p class="routine-schedule__empty">Пока пусто</p>' 
-          : `<ul class="routine-schedule__list">
-              ${items.map(p => `
-                <li class="routine-schedule__item">
-                  <span>${p.name}</span>
-                  <button class="routine-schedule__remove" 
-                          data-id="${p.id}" 
-                          data-time="${time}">×</button>
-                </li>
-              `).join('')}
-            </ul>`
-        }
-      </section>
+      <div class="routine-schedule__day-column" data-day="${day}">
+        <h3 class="routine-schedule__day-title">${this.dayNames[day]}</h3>
+        <ul class="routine-schedule__list">
+          ${items.length === 0 ? '<li class="routine-schedule__empty">Нет средств</li>' : ''}
+          ${items.map((item, index) => `
+            <li class="routine-schedule__item">
+              <span>${item.name}</span>
+              <button class="routine-schedule__remove" data-day="${day}" data-index="${index}" aria-label="Удалить">×</button>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
     `;
   }
 
-  #bindRemoveEvents(container) {
-    container.querySelectorAll('.routine-schedule__remove').forEach(btn => {
-      this.attachEvent(btn, 'click', (e) => {
-        const id = Number(e.target.dataset.id);
-        const time = e.target.dataset.time;
-        this.removeItem(id, time);
-      });
-    });
-  }
-
-  #bindClearEvent(container) {
-    const clearBtn = container.querySelector('.routine-schedule__clear-btn');
-    if (clearBtn) {
-      this.attachEvent(clearBtn, 'click', () => {
-        if (confirm('Вы уверены, что хотите очистить весь график?')) {
-          this.clearAll();
-        }
-      });
+  onEvent(event, target) {
+    if (target.matches('.routine-schedule__remove')) {
+      const day = target.dataset.day;
+      const index = parseInt(target.dataset.index, 10);
+      this.removeProduct(day, index);
     }
   }
 }

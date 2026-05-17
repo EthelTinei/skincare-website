@@ -17,7 +17,6 @@ export class ProductCard extends BaseComponent {
 
   render() {
     const imageUrl = this.getRandomImage();
-    
     const card = document.createElement('article');
     card.className = 'product-card';
     card.dataset.productId = this.product.id;
@@ -31,20 +30,27 @@ export class ProductCard extends BaseComponent {
         <p class="product-card__type">${this.product.type}</p>
         <div class="product-card__tags">
           <span class="product-card__tag">${this.product.benefits.join(', ')}</span>
-          <span class="product-card__tag product-card__tag--time">
-            ${this.product.timeOfDay === 'morning' ? '☀️ Утро' : '🌙 Вечер'}
-          </span>
         </div>
-        <button class="product-card__btn" type="button">
-          Добавить в график
-        </button>
+        <div class="product-card__day-selector">
+          <select class="product-card__select">
+            <option value="mon">Понедельник</option>
+            <option value="tue">Вторник</option>
+            <option value="wed">Среда</option>
+            <option value="thu">Четверг</option>
+            <option value="fri">Пятница</option>
+            <option value="sat">Суббота</option>
+            <option value="sun">Воскресенье</option>
+          </select>
+          <button class="product-card__btn" type="button">Добавить в график</button>
+        </div>
       </div>
     `;
 
     const btn = card.querySelector('.product-card__btn');
-    if (btn) {
+    const select = card.querySelector('.product-card__select');
+    if (btn && select) {
       btn.addEventListener('click', () => {
-        this.onAdd(this.product, this.product.timeOfDay);
+        this.onAdd(select.value, this.product);
       });
     }
 

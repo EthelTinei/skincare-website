@@ -20,7 +20,7 @@ export class ProductCard extends BaseComponent {
         <h3 class="product-card__title">${this.product.name}</h3>
         <p class="product-card__type">${this.product.type}</p>
         <div class="product-card__tags">
-          <span class="product-card__tag">🎯 ${this.product.benefits.join(', ')}</span>
+          <span class="product-card__tag"> ${this.product.benefits.join(', ')}</span>
           <span class="product-card__tag product-card__tag--time">
             ${this.product.timeOfDay === 'morning' ? '☀️ Утро' : '🌙 Вечер'}
           </span>

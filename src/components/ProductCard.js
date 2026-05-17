@@ -13,8 +13,10 @@ export class ProductCard extends BaseComponent {
     card.dataset.productId = this.product.id;
 
     card.innerHTML = `
-      <div class="product-card__image">
-        <img src="${this.product.image}" alt="${this.product.name}" loading="lazy" class="product-card__img">
+      <div class="product-card__image" style="background: ${this.product.color || 'linear-gradient(135deg, var(--color-primary), var(--color-accent))'}">
+        <div class="product-card__placeholder">
+          <span class="product-card__icon">🧴</span>
+        </div>
       </div>
       <div class="product-card__content">
         <h3 class="product-card__title">${this.product.name}</h3>

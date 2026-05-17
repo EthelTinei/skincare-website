@@ -12,7 +12,7 @@ export class ProductCard extends BaseComponent {
       const randomIndex = Math.floor(Math.random() * this.product.images.length);
       return this.product.images[randomIndex];
     }
-    return '/images/cream1.jpg';
+    return '/images/cream1.webp';
   }
 
   render() {
@@ -24,7 +24,7 @@ export class ProductCard extends BaseComponent {
 
     card.innerHTML = `
       <div class="product-card__image">
-        <img src="${imageUrl}" alt="${this.product.name}" loading="lazy" class="product-card__img" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'product-card__placeholder\'><span class=\'product-card__icon\'></span></div>'">
+        <img src="${imageUrl}" alt="${this.product.name}" loading="lazy" class="product-card__img">
       </div>
       <div class="product-card__content">
         <h3 class="product-card__title">${this.product.name}</h3>
@@ -41,9 +41,12 @@ export class ProductCard extends BaseComponent {
       </div>
     `;
 
-    this.attachEvent(card.querySelector('.product-card__btn'), 'click', () => {
-      this.onAdd(this.product, this.product.timeOfDay);
-    });
+    const btn = card.querySelector('.product-card__btn');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        this.onAdd(this.product, this.product.timeOfDay);
+      });
+    }
 
     return card;
   }
